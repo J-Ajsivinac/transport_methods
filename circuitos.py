@@ -41,11 +41,11 @@ def find_shortest_cycle(matrix: List[List[int]], start: Tuple[int, int]) -> List
                             dfs(new_x, new_y, path, dir_name)
                             path.pop()
                     if (new_x, new_y) == start:
-                        return  # Terminamos la exploración en esta dirección si llegamos al inicio
+                        return  
                 new_x, new_y = new_x + dx, new_y + dy
     
     if matrix[start[0]][start[1]] != 0:
-        return []  # El punto de inicio debe ser una celda de agua
+        return [] 
     
     dfs(start[0], start[1], [start], "")
     

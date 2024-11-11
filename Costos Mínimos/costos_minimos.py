@@ -102,9 +102,10 @@ def costos_minimos(costos, oferta, demanda, output_excel):
     
     return x, costo_total
 
+path = os.path.dirname(os.path.abspath(__file__))
 
-# Ejemplo de uso con archivo de entrada y salida
-archivo_entrada = 'tabla_transporte.xlsx'  # Nombre del archivo de entrada
+archivo_entrada = os.path.join(path, 'tabla_transporte.xlsx')
+
 archivo_salida = 'resultado_costos_minimos_en_una_hoja.xlsx'
 
 # Leer los datos del archivo Excel

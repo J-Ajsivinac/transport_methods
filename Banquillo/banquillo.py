@@ -3,6 +3,7 @@ import openpyxl
 from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
 from typing import List, Tuple
+import os
 
 def find_shortest_cycle(matrix: List[List[int]], start: Tuple[int, int]) -> List[Tuple[int, int]]:
     rows, cols = len(matrix), len(matrix[0])
@@ -174,7 +175,10 @@ def read_excel_data(filename: str) -> Tuple[np.ndarray, np.ndarray, List[int], L
 # ... [El resto del código permanece igual]
 
 def main():
-    filename = 'datos_banquillo.xlsx'
+    # get absolute path of the current file
+    path = os.path.abspath(__file__)
+    # filename = 'datos_banquillo.xlsx'
+    filename = os.path.join(os.path.dirname(path), 'datos_banquillo.xlsx')
     cost_matrix, solution_matrix, supplies, demands = read_excel_data(filename)
     
     print("Matriz de costos:")
@@ -196,7 +200,8 @@ def main():
     ws_final.cell(row=len(optimized_solution)+3, column=1, value=f"Costo optimizado: {optimized_cost}")
     
     # Guardar el archivo Excel con los resultados
-    wb.save('resultados_stepping_stone.xlsx')
+    results_filename = os.path.join(os.path.dirname(path), 'resultados_stepping_stone.xlsx')
+    wb.save(results_filename)
     print("Resultados guardados en 'resultados_stepping_stone.xlsx'")
 
 if __name__ == "__main__":
