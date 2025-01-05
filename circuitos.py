@@ -51,7 +51,6 @@ def find_shortest_cycle(matrix: List[List[int]], start: Tuple[int, int]) -> List
     
     return shortest_cycle if shortest_cycle else []
 
-# Ejemplos de uso
 matriz1 = [
     [130, 20, 0, 0],
     [0, 100, 30, 0],
@@ -65,7 +64,6 @@ matriz2 = [
     [200, 0, 0, 200],
 ]
 
-# Función auxiliar para imprimir resultados
 def print_result(example: int, start: Tuple[int, int], cycle: List[Tuple[int, int]]):
     print(f"Ejemplo {example}:")
     print(f"Inicio = {start}")

@@ -2,6 +2,7 @@ import numpy as np
 import openpyxl
 from openpyxl.styles import PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
+import os
 
 def leer_datos_excel(archivo):
     wb = openpyxl.load_workbook(archivo)
@@ -80,7 +81,7 @@ def escribir_paso_excel(ws, x, oferta, demanda, i, j, cantidad, paso, fila_actua
             cell.border = Border(left=Side(style='thin'), right=Side(style='thin'),
                                  top=Side(style='thin'), bottom=Side(style='thin'))
     
-    fila_actual += len(x) + 3  # Agregamos un espacio extra entre pasos
+    fila_actual += len(x) + 3 
     return fila_actual
 
 def agregar_variables_ficticias(oferta, demanda, costos):
@@ -138,8 +139,10 @@ def resolver_problema_transporte(archivo_excel):
     wb.save(archivo_excel)
     return solucion, costo_total
 
-# Ejemplo de uso
-archivo_excel = "tabla_transporte.xlsx"
+path_v = os.path.abspath(__file__)
+# archivo_excel = ".xlsx"
+archivo_excel = os.path.join(os.path.dirname(path_v), 'tabla_transporte.xlsx')
+
 solucion, costo_total = resolver_problema_transporte(archivo_excel)
 if solucion is not None and costo_total is not None:
     print("Solución guardada en el archivo Excel.")

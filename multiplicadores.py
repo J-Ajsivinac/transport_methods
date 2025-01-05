@@ -57,7 +57,6 @@ def stepping_stone_method(costs, allocation):
             break
     
     return allocation
-# Ejemplo de uso
 costs = np.array([
     [8, 10, 5],
     [14, 9, 7],
@@ -81,7 +80,6 @@ print(optimized_allocation)
 total_cost = np.sum(costs * optimized_allocation)
 print(f"Costo total optimizado: {total_cost}")
 
-# Verificar si la solución ha cambiado
 if np.array_equal(initial_allocation, optimized_allocation):
     print("\nAdvertencia: La asignación no ha cambiado. Esto puede indicar que la solución inicial ya era óptima o que hay un problema en el algoritmo.")
 else:

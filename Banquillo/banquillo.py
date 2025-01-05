@@ -95,7 +95,6 @@ def stepping_stone_method(cost_matrix: np.ndarray, solution_matrix: np.ndarray, 
                     else:
                         cell.fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
 
-        # Calcular y escribir el costo total
         total_cost = np.sum(solution * cost_matrix)
         ws.cell(row=start_row + len(all_paths)*3 + 2, column=1, value=f"Costo total: {total_cost}")
 
@@ -133,7 +132,6 @@ def stepping_stone_method(cost_matrix: np.ndarray, solution_matrix: np.ndarray, 
             
             step += 1
         else:
-            # Si no se encontró ninguna mejora, salir del bucle
             write_step_to_excel(step, solution_matrix, all_paths, all_costs, best_path)
             break
 
@@ -147,10 +145,8 @@ def read_excel_data(filename: str) -> Tuple[np.ndarray, np.ndarray, List[int], L
     cost_matrix = np.array([[cell for cell in row[1:]] for row in ws_costs.iter_rows(min_row=2, values_only=True)])
     print("Dimensiones de la matriz de costos:", cost_matrix.shape)
     
-    # Leer ofertas y demandas
     ws_supply_demand = wb['OfertaDemanda']
     
-    # Imprimir información de depuración
     print("Contenido de la hoja OfertaDemanda:")
     for row in ws_supply_demand.iter_rows(values_only=True):
         print(row)
@@ -166,16 +162,13 @@ def read_excel_data(filename: str) -> Tuple[np.ndarray, np.ndarray, List[int], L
     print("Ofertas:", supplies)
     print("Demandas:", demands)
     
-    # Leer solución inicial
     ws_solution = wb['SolucionInicial']
     solution_matrix = np.array([[cell for cell in row[1:]] for row in ws_solution.iter_rows(min_row=2, values_only=True)])
     print("Dimensiones de la matriz de solución inicial:", solution_matrix.shape)
     
     return cost_matrix, solution_matrix, supplies, demands
-# ... [El resto del código permanece igual]
 
 def main():
-    # get absolute path of the current file
     path = os.path.abspath(__file__)
     # filename = 'datos_banquillo.xlsx'
     filename = os.path.join(os.path.dirname(path), 'datos_banquillo.xlsx')
@@ -191,7 +184,6 @@ def main():
     wb = openpyxl.Workbook()
     optimized_solution, optimized_cost = stepping_stone_method(cost_matrix, solution_matrix, supplies, demands, wb)
     
-    # Escribir la solución final
     ws_final = wb.create_sheet(title="Solución Final")
     ws_final.cell(row=1, column=1, value="Solución optimizada:")
     for i in range(len(optimized_solution)):
@@ -199,7 +191,6 @@ def main():
             ws_final.cell(row=i+2, column=j+1, value=optimized_solution[i, j])
     ws_final.cell(row=len(optimized_solution)+3, column=1, value=f"Costo optimizado: {optimized_cost}")
     
-    # Guardar el archivo Excel con los resultados
     results_filename = os.path.join(os.path.dirname(path), 'resultados_stepping_stone.xlsx')
     wb.save(results_filename)
     print("Resultados guardados en 'resultados_stepping_stone.xlsx'")
